@@ -1,4 +1,4 @@
-import view.Lienzo;
+
 import view.VentanaPrincipal;
 
 public class Main {

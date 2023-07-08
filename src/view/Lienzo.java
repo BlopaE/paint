@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.JPanel;
 
 public class Lienzo extends Canvas implements MouseListener, MouseMotionListener {
     private Color color;
@@ -23,6 +22,13 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     public void setOpcion(String opcion) {
         this.opcion = opcion;
+        if (opcion == "Borrar"){
+            xi = 0;
+            yi = 0;
+            xf = 0;
+            yf = 0;
+            repaint();
+        }
     }
 
     public String getOpcion() {
@@ -43,21 +49,6 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     public int getGrosorLinea() {
         return grosorLinea;
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-
-        switch (opcion) {
-            case "Linea":
-                dibujarLinea(g, xi, yi, xf, yf);
-                break;
-            case "Borrar":
-                break;
-            default:
-                break;
-        }
     }
 
     private void dibujarLinea(Graphics g, int xi,int yi,int xf,int yf){
