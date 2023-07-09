@@ -1,19 +1,24 @@
 
 package view;
 
+import java.awt.BasicStroke;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-
 public class Lienzo extends Canvas implements MouseListener, MouseMotionListener {
-    private Color color;
-    private int grosorLinea;
+    private Color color = Color.BLACK;
+    private int grosorLinea = 1;
+    private Font fuente = new Font("Arial", Font.PLAIN, 12);
     private int xi, yi, xf, yf;
-    private String opcion = "";
+    private String opcion = ""; // 0 Linea 1 Cuadrado 2 Rectangulo 3 Triangulo 4 Pentagono 5 Hexagono
+    private Graphics g;
+    private Graphics2D g2d;
 
     public Lienzo() {
         super();
@@ -22,13 +27,10 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     public void setOpcion(String opcion) {
         this.opcion = opcion;
-        if (opcion == "Borrar"){
-            xi = 0;
-            yi = 0;
-            xf = 0;
-            yf = 0;
-            repaint();
-        }
+    }
+
+    public void setFuente(Font fuente) {
+        this.fuente = fuente;
     }
 
     public String getOpcion() {
@@ -51,13 +53,9 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
         return grosorLinea;
     }
 
-    private void dibujarLinea(Graphics g, int xi,int yi,int xf,int yf){
-        g.drawLine(xi, yi, xf, yf);
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
-        
+
     }
 
     @Override
@@ -68,9 +66,7 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // xf = e.getX();
-        // yf = e.getY();
-        // update(getGraphics());
+
     }
 
     @Override
@@ -83,22 +79,35 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        
-        int mx = e.getX();
-        int my = e.getY();
 
-        System.out.println(mx + " " + my);
-
-        Graphics g = getGraphics();
-        g.drawLine(xi, yi, mx, my);
-        xi = mx;
-        yi = my;
-        g.dispose();
-        
+        switch (opcion) {
+            case "Trazo":
+                int mx = e.getX();
+                int my = e.getY();
+                g = getGraphics();
+                g2d = (Graphics2D) g;
+                g2d.setStroke(new BasicStroke(grosorLinea));
+                g2d.drawLine(xi, yi, mx, my);
+                xi = mx;
+                yi = my;
+                // g2d.dispose();
+                break;
+            case "Borrar":
+                int mx2 = e.getX();
+                int my2 = e.getY();
+                g = getGraphics();
+                g2d = (Graphics2D) g;
+                g2d.setStroke(new BasicStroke(grosorLinea));
+                g2d.setColor(Color.WHITE);
+                g2d.drawLine(xi, yi, mx2, my2);
+                xi = mx2;
+                yi = my2;
+                break;
+        }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        
+
     }
 }
