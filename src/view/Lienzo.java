@@ -87,10 +87,10 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
                 g = getGraphics();
                 g2d = (Graphics2D) g;
                 g2d.setStroke(new BasicStroke(grosorLinea));
+                g2d.setColor(color);
                 g2d.drawLine(xi, yi, mx, my);
                 xi = mx;
                 yi = my;
-                // g2d.dispose();
                 break;
             case "Borrar":
                 int mx2 = e.getX();

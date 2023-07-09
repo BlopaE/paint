@@ -151,7 +151,9 @@ public class VentanaPrincipal extends JFrame {
                 color.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                                JColorChooser.showDialog(null, "Seleccione un color", null, true);
+                                Color nuevo = JColorChooser.showDialog(null, "Seleccione un color", null, true);
+                                lienzo.setColor(nuevo);
+                                color.setBackground(nuevo);
                         }
                 });
 
