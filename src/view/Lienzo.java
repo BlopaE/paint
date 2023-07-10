@@ -11,6 +11,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+
 public class Lienzo extends Canvas implements MouseListener, MouseMotionListener {
     private Color color = Color.BLACK;
     private int grosorLinea = 1;
@@ -31,6 +34,10 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     public void setFuente(Font fuente) {
         this.fuente = fuente;
+    }
+
+    public Font getFuente() {
+        return fuente;
     }
 
     public String getOpcion() {
@@ -55,7 +62,14 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        if (opcion.equals("Texto")) {
+            g = getGraphics();
+            g2d = (Graphics2D)g;
+            g2d.setFont(fuente);
+            g2d.setColor(color);
+            String string = JOptionPane.showInputDialog(this, "Ingrese el texto", "Texto", JOptionPane.DEFAULT_OPTION);
+            g2d.drawString(string, xi, yi);
+        }
     }
 
     @Override

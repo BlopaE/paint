@@ -217,6 +217,7 @@ public class VentanaPrincipal extends JFrame {
                 @Override
                 public void stateChanged(ChangeEvent e) {
                         lienzo.setGrosorLinea(grosor.getValue());
+                        lienzo.setFuente(new Font(lienzo.getFuente().getFontName(), Font.PLAIN, lienzo.getGrosorLinea()*10));
                         System.out.println(grosor.getValue());
                 }
         }
