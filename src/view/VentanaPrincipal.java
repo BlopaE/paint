@@ -201,7 +201,7 @@ public class VentanaPrincipal extends JFrame {
 
                         String opcionDetallada = opcion;
                         if (opcion.equals("Figura")) {
-                                opcionDetallada = String.valueOf(figuras.getSelectedIndex());
+                                opcionDetallada = opcion + " "+String.valueOf(figuras.getSelectedIndex());
                                 lienzo.setOpcion(opcionDetallada);
                         } else if (opcion.equals("Fuente")) {
                                 opcionDetallada = (String) fuentes.getSelectedItem();

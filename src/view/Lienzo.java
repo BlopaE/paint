@@ -64,7 +64,7 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
     public void mouseClicked(MouseEvent e) {
         if (opcion.equals("Texto")) {
             g = getGraphics();
-            g2d = (Graphics2D)g;
+            g2d = (Graphics2D) g;
             g2d.setFont(fuente);
             g2d.setColor(color);
             String string = JOptionPane.showInputDialog(this, "Ingrese el texto", "Texto", JOptionPane.DEFAULT_OPTION);
@@ -81,6 +81,80 @@ public class Lienzo extends Canvas implements MouseListener, MouseMotionListener
     @Override
     public void mouseReleased(MouseEvent e) {
 
+        g = getGraphics();
+        g2d = (Graphics2D) g;
+        g2d.setColor(color);
+        g2d.setStroke(new BasicStroke(grosorLinea));
+
+        if (opcion.split(" ")[0].equals("Figura")) {
+
+            int lados = Integer.parseInt(opcion.split(" ")[1]);
+
+            if (lados == 0) { // La opcion 0 es la linea recta
+                g.drawLine(xi, yi, e.getX(), e.getY());
+                return;
+            }
+            if (lados == 1) { // La opcion 1 es un cuadrado
+
+                dibujarCuadrado(e, g2d);
+                return;
+            } else if (lados == 2) { // rectangulo
+
+                dibujarRectangulo(e, g2d);
+                return;
+            } else if (lados == 3) { // triangulo
+
+                dibujarTriangulo(e, g2d);
+                return;
+            } else if (lados == 4) {// pentagono
+
+                dibujarPentagono(e, g2d);
+                return;
+            } else if (lados == 5) { // hexagono
+                dibujarHexagono(e, g2d);
+                return;
+            }
+        }
+    }
+
+    private void dibujarCuadrado(MouseEvent e, Graphics2D g2d) {
+        g2d.drawRect(xi, yi, e.getX() - xi, e.getX() - xi);
+    }
+
+    private void dibujarRectangulo(MouseEvent e, Graphics2D g2d) {
+        g2d.drawRect(xi, yi, e.getX() - xi, e.getY() - yi);
+    }
+
+    private void dibujarTriangulo(MouseEvent e, Graphics2D g2d) {
+
+        int verticeArribax = xi + (e.getX() - xi) / 2;
+        int xPoints[] = { verticeArribax, e.getX(), xi };
+        int yPoints[] = { yi, e.getY(), e.getY() };
+
+        g2d.drawPolygon(xPoints, yPoints, 3);
+    }
+
+    private void dibujarPentagono(MouseEvent e, Graphics2D g2d) {
+
+        int width = e.getX() - xi;
+        int height = e.getY() - yi;
+
+        int xPoints[] = { width / 2, width, (int) (width * 0.8), (int) (width * 0.2), 0 };
+        int yPoints[] = { 0, (int) (height * 0.35), height, height, (int) (height * 0.35) };
+
+        g2d.translate(xi, yi);
+        g2d.drawPolygon(xPoints, yPoints, 5);
+    }
+
+    private void dibujarHexagono(MouseEvent e, Graphics2D g2d){
+        int width = e.getX() - xi;
+        int height = e.getY() - yi;
+
+        int xPoints[] = { (int)(width * 0.25), (int)(width*0.75), width, (int)(width*0.75), (int)(width*0.25), 0};
+        int yPoints[] = { 0, 0, (int)(height*0.5), height, height, (int)(height*0.5) };
+
+        g2d.translate(xi, yi);
+        g2d.drawPolygon(xPoints, yPoints, 6);
     }
 
     @Override
